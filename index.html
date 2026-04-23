@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Venugopal Bogireddy — Senior Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f14;
+      --bg2: #13161e;
+      --bg3: #1a1e29;
+      --border: rgba(255,255,255,0.07);
+      --amber: #f0a500;
+      --amber-dim: rgba(240,165,0,0.12);
+      --amber-glow: rgba(240,165,0,0.04);
+      --text: #e8e9ec;
+      --text-muted: #6b7280;
+      --text-dim: #9ca3af;
+      --green: #34d399;
+      --blue: #60a5fa;
+      --red: #f87171;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 6rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.25s forwards;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--amber);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 44ch;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.55s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: #0d0f14;
+      border: 1px solid var(--amber);
+    }
+
+    .btn-primary:hover {
+      background: #ffc133;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: var(--bg3);
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black, transparent);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      width: min(420px, 85%);
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.7s forwards;
+    }
+
+    .stat-cell {
+      background: var(--bg2);
+      padding: 2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-cell::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 100%;
+      background: var(--amber);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .stat-cell:hover::after { opacity: 1; }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1.1;
+    }
+
+    /* ── IMPACT NUMBERS ── */
+    #impact {
+      padding: 7rem 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .impact-item {
+      background: var(--bg2);
+      padding: 2.5rem 2rem;
+      position: relative;
+      cursor: default;
+      transition: background 0.2s;
+    }
+
+    .impact-item:hover { background: var(--bg3); }
+
+    .impact-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-num span {
+      color: var(--amber);
+    }
+
+    .impact-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 20ch;
+    }
+
+    .impact-source {
+      margin-top: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(240,165,0,0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      padding: 8rem 0;
+    }
+
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      position: relative;
+    }
+
+    .exp-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-meta {
+      padding-right: 2.5rem;
+    }
+
+    .exp-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-company {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
+
+    .exp-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: var(--amber-dim);
+      border: 1px solid rgba(240,165,0,0.2);
+      color: var(--amber);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+
+    .exp-content {}
+
+    .exp-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .exp-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-size: 0.75rem;
+    }
+
+    .exp-bullets li strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      padding: 8rem 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .skill-group {
+      background: var(--bg2);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .skill-group:hover { background: var(--bg3); }
+
+    .skill-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--amber-dim);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      transition: all 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: rgba(240,165,0,0.3);
+      color: var(--text);
+    }
+
+    /* ── STORIES ── */
+    #stories {
+      padding: 8rem 0;
+    }
+
+    .stories-intro {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 60ch;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .story-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .story-card {
+      background: var(--bg2);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.2s;
+    }
+
+    .story-card:hover { background: var(--bg3); }
+
+    .story-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .story-card:hover::before { transform: scaleX(1); }
+
+    .story-domain {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--amber);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .story-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.25;
+    }
+
+    .story-excerpt {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .story-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .metric-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+
+    .metric-pill.green { color: var(--green); border-color: rgba(52,211,153,0.2); background: rgba(52,211,153,0.05); }
+    .metric-pill.amber { color: var(--amber); border-color: rgba(240,165,0,0.2); background: var(--amber-glow); }
+    .metric-pill.blue  { color: var(--blue); border-color: rgba(96,165,250,0.2);  background: rgba(96,165,250,0.05); }
+
+    /* ── PROJECTS ── */
+    #projects {
+      padding: 8rem 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .projects-intro {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 55ch;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .project-placeholder {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .project-card {
+      background: var(--bg2);
+      padding: 2.5rem;
+      border: 1px solid transparent;
+      position: relative;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card.coming-soon {
+      opacity: 0.5;
+    }
+
+    .project-card.coming-soon::after {
+      content: 'Coming soon';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .project-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tech-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--amber);
+      border: 1px solid rgba(240,165,0,0.2);
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 8rem 0;
+      text-align: center;
+    }
+
+    .contact-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      max-width: 16ch;
+      margin: 0 auto 1.5rem;
+    }
+
+    .contact-sub {
+      color: var(--text-muted);
+      max-width: 46ch;
+      margin: 0 auto 2.5rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 7rem 1.5rem 3rem; }
+      .hero-right { display: none; }
+
+      .exp-item { grid-template-columns: 1fr; gap: 1rem; }
+      .exp-meta { padding-right: 0; }
+
+      .section-header { flex-direction: column; gap: 0.3rem; }
+      .container { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">VB // SDE</div>
+    <ul class="nav-links">
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#stories">Stories</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-tag">Senior Software Engineer · Platform &amp; Systems</p>
+      <h1 class="hero-name">Venugopal<br><em>Bogireddy</em></h1>
+      <p class="hero-desc">
+        6+ years building shared platform foundations and data intelligence systems at Amazon — operating at global scale, owning end-to-end from architecture to live-site reliability.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:venuiitms@gmail.com" class="btn btn-primary">Get in Touch</a>
+        <a href="https://linkedin.com/in/venugopalbogireddy" target="_blank" class="btn btn-outline">LinkedIn →</a>
+        <a href="https://github.com/venugopalbogireddy" target="_blank" class="btn btn-outline">GitHub →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-grid-bg"></div>
+      <div class="hero-stats">
+        <div class="stat-cell">
+          <div class="stat-num">4M+</div>
+          <div class="stat-label">TPS Owned</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Years at Amazon</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">$5M+</div>
+          <div class="stat-label">Business Impact</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">85%</div>
+          <div class="stat-label">Payload Reduction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT NUMBERS -->
+  <section id="impact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">01 /</span>
+        <h2 class="section-title">Impact by the Numbers</h2>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-item reveal">
+          <div class="impact-num"><span>4</span>ms</div>
+          <div class="impact-desc">P99 latency reduction via HTTP→gRPC migration</div>
+          <div class="impact-source">Amazon Ads · 2024</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num">$<span>4.2</span>M</div>
+          <div class="impact-desc">Annual business impact from latency improvements</div>
+          <div class="impact-source">Amazon Ads · 2024</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num">$<span>1</span>M</div>
+          <div class="impact-desc">Infrastructure cost eliminated via cache deprecation</div>
+          <div class="impact-source">Amazon Ads · 2023</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num"><span>85</span>%</div>
+          <div class="impact-desc">Payload reduction — 8.2KB → under 1KB via Protobuf</div>
+          <div class="impact-source">Amazon Ads · 2024</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num"><span>9</span>ms</div>
+          <div class="impact-desc">Final latency after full migration — from 14ms baseline</div>
+          <div class="impact-source">Amazon Ads · 2024</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num"><span>4</span>hrs</div>
+          <div class="impact-desc">New team onboarding time — down from 1 week</div>
+          <div class="impact-source">Vert.x Platform · 2023</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num"><span>~0</span></div>
+          <div class="impact-desc">False on-call pages per rotation — down from 5–6/cycle</div>
+          <div class="impact-source">On-call Remediation · 2024</div>
+        </div>
+        <div class="impact-item reveal">
+          <div class="impact-num"><span>20</span>min</div>
+          <div class="impact-desc">Triage time per session — down from 2 hours via agentic LLM tool</div>
+          <div class="impact-source">Kiro Agentic Tooling · 2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">02 /</span>
+        <h2 class="section-title">Experience</h2>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <div class="exp-period">Nov 2022 — Present</div>
+            <div class="exp-company">Amazon Ads</div>
+            <div class="exp-badge">Current</div>
+          </div>
+          <div class="exp-content">
+            <h3 class="exp-role">SDE II — Ad Exchange Platform</h3>
+            <ul class="exp-bullets">
+              <li><strong>DAG-based workflow orchestration (Vert.x)</strong> — shared platform foundation reused across multiple teams; new team onboarding from 1 week → under 4 hours.</li>
+              <li><strong>Platform-wide gRPC migration at 4M TPS</strong> — owned architecture, multi-team API design, phased rollout, zero-downtime cutover; P99 latency −4ms → $4.2M annual impact.</li>
+              <li><strong>Privacy &amp; compliance foundations</strong> — PII pseudonymization, GDPR/DMA/CCPA/GPP consent enforcement, cryptographic standardization, legal-grade audit documentation.</li>
+              <li><strong>Agentic on-call tooling (Amazon Kiro)</strong> — LLM-powered triage across 160 weekly tickets; repetitive triage reduced from 2 hours → 20 minutes per session.</li>
+              <li><strong>$1M+ infrastructure cost elimination</strong> — identified stale cache clusters and deprecated regions during PII migration; cross-org alignment with zero operational impact.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <div class="exp-period">Feb 2020 — Nov 2022</div>
+            <div class="exp-company">Amazon Web Services</div>
+          </div>
+          <div class="exp-content">
+            <h3 class="exp-role">SDE I → SDE II — Security Platforms</h3>
+            <ul class="exp-bullets">
+              <li><strong>Zero-downtime Elasticsearch → OpenSearch migration</strong> — dual-write architecture, SLA validation, ISM-based sharding strategy; zero disruption to security ops teams.</li>
+              <li><strong>Access control &amp; authorization framework</strong> — least-privilege IAM, query-scoped permission propagation, storage-layer access validation for large-scale security investigation platform.</li>
+              <li><strong>Application security review (3TB/day pipeline)</strong> — identified and remediated gaps across logging, API gateway hardening, resource monitoring, and access governance.</li>
+              <li><strong>Synthetic data framework</strong> — mentored intern from design to production; adopted by 4 teams; data creation time 2 days → 2 hours with TTL and service-boundary constraints.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <div class="exp-period">Jun 2019 — Aug 2019</div>
+            <div class="exp-company">Amazon Web Services</div>
+          </div>
+          <div class="exp-content">
+            <h3 class="exp-role">SDE Intern</h3>
+            <ul class="exp-bullets">
+              <li><strong>ETL pipeline (Gaffer, Accumulo, AWS EMR)</strong> — large-scale security data processing at 4× faster throughput vs legacy approach.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">03 /</span>
+        <h2 class="section-title">Technical Depth</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <div class="skill-group-label">Languages &amp; Frameworks</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Java (Spring)</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">C/C++</span>
+            <span class="skill-tag">C# (.NET)</span>
+            <span class="skill-tag">Vert.x</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-label">Platform &amp; API Design</div>
+          <div class="skill-tags">
+            <span class="skill-tag">DAG Orchestration</span>
+            <span class="skill-tag">gRPC</span>
+            <span class="skill-tag">REST</span>
+            <span class="skill-tag">Protobuf</span>
+            <span class="skill-tag">OpenRTB</span>
+            <span class="skill-tag">Event-driven Arch</span>
+            <span class="skill-tag">Internal Dev Platforms</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-label">AI &amp; Agentic Systems</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Amazon Bedrock</span>
+            <span class="skill-tag">LLM API Integration</span>
+            <span class="skill-tag">Agentic Workflow Design</span>
+            <span class="skill-tag">Spec-driven Dev</span>
+            <span class="skill-tag">SOP Constraints</span>
+            <span class="skill-tag">Structured Output Validation</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-label">Cloud &amp; Infrastructure</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS Lambda</span>
+            <span class="skill-tag">EMR</span>
+            <span class="skill-tag">DynamoDB</span>
+            <span class="skill-tag">S3</span>
+            <span class="skill-tag">SQS / SNS</span>
+            <span class="skill-tag">OpenSearch</span>
+            <span class="skill-tag">CloudWatch</span>
+            <span class="skill-tag">CDK / CloudFormation</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">CI/CD</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-label">Security &amp; Compliance</div>
+          <div class="skill-tags">
+            <span class="skill-tag">GDPR</span>
+            <span class="skill-tag">DMA</span>
+            <span class="skill-tag">CCPA</span>
+            <span class="skill-tag">GPP</span>
+            <span class="skill-tag">PII Pseudonymization</span>
+            <span class="skill-tag">Least-privilege IAM</span>
+            <span class="skill-tag">Zero-trust</span>
+            <span class="skill-tag">Audit Documentation</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-label">Reliability &amp; Observability</div>
+          <div class="skill-tags">
+            <span class="skill-tag">SLA/SLO Design</span>
+            <span class="skill-tag">On-call Ownership</span>
+            <span class="skill-tag">ELK / OpenSearch</span>
+            <span class="skill-tag">Load Testing</span>
+            <span class="skill-tag">Runbook Development</span>
+            <span class="skill-tag">Zero-downtime Migration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section id="stories">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">04 /</span>
+        <h2 class="section-title">Engineering Stories</h2>
+      </div>
+      <p class="stories-intro reveal">
+        The decisions behind the numbers — where things broke, how I navigated them, and what I shipped.
+      </p>
+      <div class="story-cards">
+
+        <div class="story-card reveal">
+          <div class="story-domain">Platform Migration</div>
+          <h3 class="story-title">gRPC Migration Under Scale — Three Compounding Problems</h3>
+          <p class="story-excerpt">Moving 4M TPS from HTTP to gRPC: a latency regression at 1% dialup, scope creep from a legacy Groovy module, and a deadline slip — navigated by holding the line until the root cause was fixed rather than shipping known debt.</p>
+          <div class="story-metrics">
+            <span class="metric-pill green">14ms → 9ms latency</span>
+            <span class="metric-pill amber">85% payload reduction</span>
+            <span class="metric-pill blue">2M TPS at milestone</span>
+          </div>
+        </div>
+
+        <div class="story-card reveal">
+          <div class="story-domain">Scope &amp; Negotiation</div>
+          <h3 class="story-title">Preventing Ad-hoc Compliance Debt — Twitch DMA Bypass</h3>
+          <p class="story-excerpt">Mid-execution on DMA standardization, a supply team demanded a source-specific bypass. I pushed for the exact revenue number first, traced the root cause to a signal-merging bug on their side, and made the $50K/week cost a bounded, time-limited decision rather than an open-ended emergency.</p>
+          <div class="story-metrics">
+            <span class="metric-pill amber">$50K/week scoped</span>
+            <span class="metric-pill green">Zero bypass code shipped</span>
+            <span class="metric-pill blue">Standardized framework adopted</span>
+          </div>
+        </div>
+
+        <div class="story-card reveal">
+          <div class="story-domain">Competing Priorities</div>
+          <h3 class="story-title">Two Hard Deadlines, One Engineer</h3>
+          <p class="story-excerpt">Privacy compliance deadline with external customer commitment collided with an auction design migration locked across four teams. Used feature flags to unblock the supply team early, extended auction timeline by one month with full alignment, shipped privacy on time.</p>
+          <div class="story-metrics">
+            <span class="metric-pill green">120M req/day stopped punting</span>
+            <span class="metric-pill amber">+25% projected revenue</span>
+            <span class="metric-pill blue">NBA live test: +12% at dial</span>
+          </div>
+        </div>
+
+        <div class="story-card reveal">
+          <div class="story-domain">Ownership &amp; Initiative</div>
+          <h3 class="story-title">On-call Alarm Audit Across Three Teams</h3>
+          <p class="story-excerpt">Nobody asked me to fix the miscalibrated alarm ownership list. I used agentic tooling to inventory 250+ alarms, delegated identity team analysis to the right owners, validated 17 business-critical alarms, and eliminated 5–6 false pages per rotation cycle.</p>
+          <div class="story-metrics">
+            <span class="metric-pill green">5–6 false pages → ~0</span>
+            <span class="metric-pill amber">250+ alarms audited</span>
+            <span class="metric-pill blue">3 teams aligned</span>
+          </div>
+        </div>
+
+        <div class="story-card reveal">
+          <div class="story-domain">Learning Fast</div>
+          <h3 class="story-title">Building the gRPC Framework on a Tech I'd Never Touched</h3>
+          <p class="story-excerpt">Tasked with designing the gRPC integration framework for a new Vert.x service — a technology I'd never used — from scratch. Diagnosed a subtle asyncStub → futureStub latency issue during load testing. Built in 3.5 weeks; first team onboarded in under 2 days.</p>
+          <div class="story-metrics">
+            <span class="metric-pill green">1ms node latency</span>
+            <span class="metric-pill amber">3.5 weeks to production</span>
+            <span class="metric-pill blue">&lt;2 days first onboarding</span>
+          </div>
+        </div>
+
+        <div class="story-card reveal">
+          <div class="story-domain">Mentorship</div>
+          <h3 class="story-title">Coaching Through Negotiation, Not Just Code</h3>
+          <p class="story-excerpt">Delegated majority of a Render Endemic Creative feature to a junior developer. When external timeline pressure landed on him, I ran negotiation role-plays — acting as the partner team pushing on deadline — so he could practice holding position before doing it for real. He handled the final conversations largely independently.</p>
+          <div class="story-metrics">
+            <span class="metric-pill green">Feature shipped on schedule</span>
+            <span class="metric-pill amber">Developer put on promo path</span>
+            <span class="metric-pill blue">Bugs surfaced by reordering</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">05 /</span>
+        <h2 class="section-title">Personal Projects</h2>
+      </div>
+      <p class="projects-intro reveal">
+        Building in public — systems, tools, and experiments outside of work. This section grows as I ship.
+      </p>
+      <div class="project-placeholder">
+        <div class="project-card coming-soon">
+          <div></div>
+          <div></div>
+        </div>
+        <div class="project-card coming-soon">
+          <div></div>
+          <div></div>
+        </div>
+        <div class="project-card coming-soon">
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="contact-eyebrow reveal">Let's talk</p>
+      <h2 class="contact-headline reveal">Open to the right opportunity.</h2>
+      <p class="contact-sub reveal">
+        Platform engineering, data systems, and places where reliability and scale actually matter. If you're building something serious, I'd like to hear about it.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:venuiitms@gmail.com" class="btn btn-primary">venuiitms@gmail.com</a>
+        <a href="https://linkedin.com/in/venugopalbogireddy" target="_blank" class="btn btn-outline">LinkedIn →</a>
+        <a href="https://github.com/venugopalbogireddy" target="_blank" class="btn btn-outline">GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Venugopal Bogireddy · Built with HTML/CSS · Hosted on GitHub Pages · 2025</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 80}ms`;
+      observer.observe(el);
+    });
+
+    // Smooth active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const ioNav = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.style.color = '');
+          const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (active) active.style.color = '#f0a500';
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => ioNav.observe(s));
+  </script>
+</body>
+</html>
